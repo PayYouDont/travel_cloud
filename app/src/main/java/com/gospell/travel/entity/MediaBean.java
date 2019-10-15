@@ -1,11 +1,17 @@
 package com.gospell.travel.entity;
 
+import org.litepal.LitePal;
+import org.litepal.crud.LitePalSupport;
+
 import java.util.Date;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class MediaBean {
+@EqualsAndHashCode(callSuper = false)
+public class MediaBean extends LitePalSupport {
+    private long id;
     //图片
     private Type type;
     private String path;
@@ -14,10 +20,16 @@ public class MediaBean {
     private Date createTime;
     private Date updateTime;
     //0:未同步 1:已同步
-    private int status;
+    private int status = 0;
+    //-1:文件已不存在 1：存在
+    private int isExist = 1;
     //视频
     private String thumbPath;
     private int duration;
+    //上传id
+    private String uploadId;
+
+    public MediaBean() {}
 
     public MediaBean(Type type, String path, int size, String displayName) {
         this.type = type;
@@ -34,7 +46,14 @@ public class MediaBean {
         this.thumbPath = thumbPath;
         this.duration = duration;
     }
-
+    @Override
+    public boolean save(){
+        int count = LitePal.where ("displayName=? and size=?",displayName,""+size).count (getClass ());
+        if(count>0){//已经存在
+            return true;
+        }
+        return super.save ();
+    }
     public enum Type {
         Image,Video
     }

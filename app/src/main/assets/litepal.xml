@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
     <dbname value="travel_cloud"/>
-    <version value="1"/>
+    <version value="3"/>
     <list>
-       <!-- <mapping class="com.example.bookkeeping.entity.Expenditure"></mapping>
-        <mapping class="com.example.bookkeeping.entity.PayMethod"></mapping>
-        <mapping class="com.example.bookkeeping.entity.Bill"></mapping>
-        <mapping class="com.example.bookkeeping.entity.ProgressData"></mapping>
-        <mapping class="com.example.bookkeeping.entity.AppVersion"></mapping>-->
+        <mapping class="com.gospell.travel.entity.MediaBean"></mapping>
     </list>
 </litepal>
