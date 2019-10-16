@@ -25,7 +25,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     protected void onCreateView() {
         homeViewModel = ViewModelProviders.of (this).get (HomeViewModel.class);
-        homeViewModel.getText ().observe (this, mediaBeans -> textView.setText (mediaBeans.toString ()));
+        homeViewModel.getText ().observe (this, s -> textView.setText (s));
 
     }
 }

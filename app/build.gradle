@@ -51,8 +51,9 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'ru.alexbykov:nopermission:1.1.2'
     def uploadServiceVersion = "3.5.2"
-    implementation "net.gotev:uploadservice:$uploadServiceVersion"
+    //implementation "net.gotev:uploadservice:$uploadServiceVersion"
     implementation "net.gotev:uploadservice-ftp:$uploadServiceVersion"
     implementation 'com.squareup.okhttp3:okhttp:4.2.0'
+    //implementation 'com.leon:lfilepickerlibrary:1.8.0'
 
 }

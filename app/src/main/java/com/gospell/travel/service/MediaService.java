@@ -36,7 +36,9 @@ public class MediaService extends Service {
             while (true){
                 if(MediaLoader.mediaBeanQueue.size ()>0){
                     MediaBean mediaBean = MediaLoader.mediaBeanQueue.poll ();
-                    mediaBean.save ();
+                    if(mediaBean!=null){
+                        mediaBean.save ();
+                    }
                 }else{
                     try {
                         Thread.sleep (10000);
@@ -73,6 +75,7 @@ public class MediaService extends Service {
             if(mediaBean!=null){
                 MediaLoader.mediaBeanQueue.offer (mediaBean);
                 FTPService.mediaBeanQueue.offer (mediaBean);
+                FTPService.total++;
             }
         });
     }

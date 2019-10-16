@@ -1,4 +1,4 @@
 ftp.username = admin
 ftp.password = 123456
-ftp.serverUrl = http://192.168.1.95
-ftp.serverPort = 8080
+ftp.serverIP = 192.168.1.95
+ftp.serverPort = 21

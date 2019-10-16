@@ -12,13 +12,19 @@ import java.util.List;
 
 public class HomeViewModel extends ViewModel {
 
-    private MutableLiveData<List<MediaBean>> mText;
+    private MutableLiveData<String> mText;
     public HomeViewModel() {
         mText = new MutableLiveData<> ();
-        mText.setValue (LitePal.findAll (MediaBean.class));
+        List<MediaBean> list = LitePal.findAll (MediaBean.class);
+        StringBuffer stringBuffer = new StringBuffer ();
+        list.forEach (mediaBean -> {
+            stringBuffer.append (mediaBean.getDisplayName ());
+            stringBuffer.append (" \n");
+        });
+        mText.setValue (stringBuffer.substring (0,stringBuffer.length ()-2));
     }
 
-    public LiveData<List<MediaBean>> getText() {
+    public LiveData<String> getText() {
         return mText;
     }
 }
