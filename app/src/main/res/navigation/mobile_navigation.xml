@@ -8,36 +8,35 @@
     <fragment
             android:id="@+id/nav_home"
             android:name="com.gospell.travel.ui.home.HomeFragment"
-            android:label="@string/menu_home"
+            android:label="@string/menu_device_list"
             tools:layout="@layout/fragment_home" />
 
     <fragment
-            android:id="@+id/nav_gallery"
-            android:name="com.gospell.travel.ui.gallery.GalleryFragment"
-            android:label="@string/menu_gallery"
-            tools:layout="@layout/fragment_gallery" />
+            android:id="@+id/nav_setting_client"
+            android:name="com.gospell.travel.ui.setting.ClientSettingFragment"
+            android:label="@string/menu_client_setting"
+            tools:layout="@layout/fragment_setting_client" />
 
     <fragment
-            android:id="@+id/nav_slideshow"
-            android:name="com.gospell.travel.ui.slideshow.SlideshowFragment"
-            android:label="@string/menu_slideshow"
-            tools:layout="@layout/fragment_slideshow" />
+            android:id="@+id/nav_device_access"
+            android:name="com.gospell.travel.ui.device.DeviceAccessFragment"
+            android:label="@string/menu_current_device"
+            tools:layout="@layout/fragment_device_access" />
 
     <fragment
-            android:id="@+id/nav_tools"
-            android:name="com.gospell.travel.ui.tools.ToolsFragment"
-            android:label="@string/menu_tools"
-            tools:layout="@layout/fragment_tools" />
+            android:id="@+id/nav_wifi_setting"
+            android:name="com.gospell.travel.ui.setting.WifiSettingFragment"
+            android:label="@string/menu_wif_setting"
+            tools:layout="@layout/fragment_setting_wifi" />
 
     <fragment
-            android:id="@+id/nav_share"
-            android:name="com.gospell.travel.ui.share.ShareFragment"
-            android:label="@string/menu_share"
-            tools:layout="@layout/fragment_share" />
-
+            android:id="@+id/nav_device_controller"
+            android:name="com.gospell.travel.ui.device.DeviceControllerFragment"
+            android:label="@string/menu_ctrl_device"
+            tools:layout="@layout/fragment_device_controll" />
     <fragment
-            android:id="@+id/nav_send"
-            android:name="com.gospell.travel.ui.send.SendFragment"
-            android:label="@string/menu_send"
-            tools:layout="@layout/fragment_send" />
+            android:id="@+id/nav_login_client"
+            android:name="com.gospell.travel.ui.login.LoginClientFragment"
+            android:label="@string/menu_login_client"
+            tools:layout="@layout/fragment_login" />
 </navigation>

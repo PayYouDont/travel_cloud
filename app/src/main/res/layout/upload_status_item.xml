@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+    <ImageView
+            android:id="@+id/upload_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/ic_launcher" />
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+        <TextView
+                android:id="@+id/upload_info"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:text="xxx.png 正在上传"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="18dp" />
+
+        <cn.bingoogolapple.progressbar.BGAProgressBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/upload_progress"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:progress="40"
+                app:bga_pb_isCapRounded="false"
+                app:bga_pb_isHiddenText="true"
+                app:bga_pb_mode="horizontal"
+                app:bga_pb_reachedHeight="4dp"
+                app:bga_pb_textMargin="8dp"
+                app:bga_pb_textSize="14sp"
+                app:bga_pb_unReachedColor="#ECF0F1"
+                app:bga_pb_unReachedHeight="2dp" />
+    </LinearLayout>
+
+    <ImageView
+            android:id="@+id/upload_status"
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_status_play" />
+</LinearLayout>

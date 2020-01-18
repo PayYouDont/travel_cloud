@@ -1,30 +1,25 @@
 package com.gospell.travel.ui.home;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.gospell.travel.entity.MediaBean;
+import com.gospell.travel.entity.UploadInfo;
+import com.gospell.travel.ftp.FTPService;
 
-import org.litepal.LitePal;
-
+import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+
 public class HomeViewModel extends ViewModel {
-
-    private MutableLiveData<String> mText;
+    @Getter
+    private MutableLiveData<List<UploadInfo>> liveData;
     public HomeViewModel() {
-        mText = new MutableLiveData<> ();
-        List<MediaBean> list = LitePal.findAll (MediaBean.class);
-        StringBuffer stringBuffer = new StringBuffer ();
-        list.forEach (mediaBean -> {
-            stringBuffer.append (mediaBean.getDisplayName ());
-            stringBuffer.append (" \n");
-        });
-        mText.setValue (stringBuffer.substring (0,stringBuffer.length ()-2));
-    }
-
-    public LiveData<String> getText() {
-        return mText;
+        liveData = new MutableLiveData<> ();
+        List<UploadInfo> uploadInfos = new ArrayList<> ();
+        if(FTPService.uploadInfoList.size ()!=0){
+            uploadInfos.addAll (FTPService.uploadInfoList);
+        }
+        liveData.setValue (uploadInfos);
     }
 }

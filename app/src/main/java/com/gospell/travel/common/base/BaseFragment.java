@@ -13,10 +13,15 @@ import androidx.fragment.app.Fragment;
 import com.gospell.travel.common.annotation.RootView;
 import com.gospell.travel.common.annotation.ViewById;
 import com.gospell.travel.common.util.ReflectUtil;
+import com.gospell.travel.helper.BackHandlerHelper;
+import com.gospell.travel.helper.FragmentBackHandler;
 
 import org.litepal.util.LogUtil;
 
-public abstract class BaseFragment extends Fragment {
+import lombok.Getter;
+
+@Getter
+public abstract class BaseFragment extends Fragment{
     private View root;
     private LayoutInflater inflater;
     private ViewGroup container;

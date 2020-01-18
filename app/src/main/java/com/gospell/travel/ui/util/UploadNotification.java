@@ -8,8 +8,8 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 
+import com.gospell.travel.MainActivity;
 import com.gospell.travel.R;
-import com.gospell.travel.ftp.FTPService;
 /**
 * @Author peiyongdong
 * @Description ( 上传结果通知消息 )
@@ -39,7 +39,8 @@ public class UploadNotification {
         service.startForeground (1,getNotification (progress));
     }
     private Notification getNotification(int progress) {
-        Intent intent = new Intent (service, FTPService.class);
+        Intent intent = new Intent (service, MainActivity.class);
+        intent.putExtra("fragment", "homeFragment");
         PendingIntent pendingIntent = PendingIntent.getActivity (service,0,intent,0);
         Notification.Builder builder = new Notification.Builder (service.getApplicationContext())
                 .setContentIntent (pendingIntent)

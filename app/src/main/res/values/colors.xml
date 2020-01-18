@@ -3,4 +3,16 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <!--状态栏颜色-->
+    <color name="colorStatusBar">#132C47</color>
+    <!--导航栏颜色-->
+    <color name="colorToolBar">#1FBBAE</color>
+    <color name="colorBackground">#ECECEC</color>
+    <!--状态颜色-->
+    <color name="colorError">#C280FF</color>
+    <color name="colorSuccess">#00D473</color>
+    <color name="colorWarning">#FF7F00</color>
+    <color name="colorTextDark">#252525</color>
+    <color name="colorTextLight">#FFFFFF</color>
+    <color name="colorLogCardBg">#f7f7f7</color>
 </resources>

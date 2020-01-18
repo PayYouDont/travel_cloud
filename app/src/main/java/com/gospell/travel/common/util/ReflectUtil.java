@@ -9,6 +9,8 @@ import org.litepal.util.LogUtil;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -52,7 +54,7 @@ public class ReflectUtil {
         List<Field> fieldList = getFields (clazz);
         fieldList.forEach (field -> {
             Annotation annotation = field.getAnnotation (annotationClass);
-            if(annotation!=null){
+            if(annotation!=null && onAnnotationCallback != null){
                 onAnnotationCallback.setField (annotation,field);
                 if(isSingle){
                     return;
@@ -73,14 +75,39 @@ public class ReflectUtil {
         }
         initFieldByAnnotation (object.getClass (), Value.class,(annotation, field) -> {
             try {
-                if(field.getType ().getName ().toLowerCase ().indexOf ("int")!=-1){
-                    field.set (object,Integer.valueOf (props.getProperty (((Value)annotation).value ())));
+                String type = field.getType ().getName ().toLowerCase ();
+                String value = props.getProperty (((Value)annotation).value ());
+                if(type.indexOf ("int")!=-1){
+                    field.set (object,Integer.valueOf (value));
+                }else if((type.indexOf ("boolean"))!=-1){
+                    field.set (object,Boolean.valueOf (value));
+                }else if((type.indexOf ("integer"))!=-1){
+                    field.set (object,Integer.valueOf (value));
                 }else {
-                    field.set (object,props.getProperty (((Value)annotation).value ()));
+                    field.set (object,value);
                 }
             }catch (Exception e){
                 LogUtil.e (ReflectUtil.class.getName (),e);
             }
         },false);
+    }
+    /**
+     * @Author peiyongdong
+     * @Description ( 获取泛型class )
+     * @Date 16:08 2019/11/11
+     * @Param [clazz]
+     * @return java.lang.Class
+     **/
+    public static Class getGenericClass(Class clazz){
+        Type genericSuperclass = clazz.getGenericSuperclass();
+        if(genericSuperclass instanceof ParameterizedType){
+            //参数化类型
+            ParameterizedType parameterizedType= (ParameterizedType) genericSuperclass;
+            //返回表示此类型实际类型参数的 Type 对象的数组
+            Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
+            return (Class) actualTypeArguments[0];
+        }else {
+            return (Class) genericSuperclass;
+        }
     }
 }

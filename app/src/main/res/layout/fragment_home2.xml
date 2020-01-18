@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+            <cn.bingoogolapple.progressbar.BGAProgressBar
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:id="@+id/upload_all_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:progress="40"
+                    android:layout_gravity="center"
+                    app:bga_pb_isCapRounded="false"
+                    app:bga_pb_isHiddenText="true"
+                    app:bga_pb_mode="circle"
+                    app:bga_pb_reachedHeight="4dp"
+                    app:bga_pb_textMargin="8dp"
+                    app:bga_pb_textSize="14sp"
+                    app:bga_pb_unReachedColor="#ECF0F1"
+                    app:bga_pb_unReachedHeight="2dp"/>
+            <TextView
+                    android:id="@+id/upload_all_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="上传进度：50%" />
+        </LinearLayout>
+        <com.google.android.material.tabs.TabLayout
+                android:id="@+id/result_tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:tabSelectedTextColor="#26a4f5"
+                app:tabIndicatorHeight="0dp"
+                app:tabMode="scrollable"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+           <!-- <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>-->
+        </com.google.android.material.tabs.TabLayout>
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/upload_status_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
