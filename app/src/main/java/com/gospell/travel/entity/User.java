@@ -1,8 +1,9 @@
 package com.gospell.travel.entity;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.litepal.util.LogUtil;
 
 import java.util.Date;
 
@@ -47,7 +48,7 @@ public class User {
             this.sex = Integer.valueOf (sex);
             this.headimgurl = headimgurl;
         }catch (JSONException e){
-            LogUtil.e (getClass ().getName (),e);
+            Log.e (getClass ().getName (),e.getMessage (),e);
         }
         return this;
     }

@@ -22,15 +22,14 @@ public class BroadcastChannelInitializer extends ChannelInitializer<Channel> {
 
     @Override
     protected void initChannel(Channel channel) throws Exception {
-        channel.pipeline().addLast(new StringDecoder (CharsetUtil.UTF_8));
-        channel.pipeline().addLast(new StringEncoder (CharsetUtil.UTF_8));
-        channel.pipeline().addLast (new MessageToMessageEncoder<String> () {
+        channel.pipeline ().addLast (new StringDecoder (CharsetUtil.UTF_8));
+        channel.pipeline ().addLast (new StringEncoder (CharsetUtil.UTF_8));
+        channel.pipeline ().addLast (new MessageToMessageEncoder<String> () {
             @Override
-            protected void encode(ChannelHandlerContext ctx, String msg, List<Object> out){
-                byte[] bytes = msg.getBytes(CharsetUtil.UTF_8);
-                ByteBuf buf = ctx.alloc().buffer(bytes.length);
-                buf.writeBytes(bytes);
-                out.add(new DatagramPacket (buf, address));
+            protected void encode(ChannelHandlerContext ctx, String msg, List<Object> out) {
+                byte[] bytes = msg.getBytes (CharsetUtil.UTF_8);
+                ByteBuf buf = ctx.alloc ().buffer (bytes.length).writeBytes (bytes);
+                out.add (new DatagramPacket (buf, address));
             }
         });
     }

@@ -1,10 +1,9 @@
 package com.gospell.travel.common.util;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.gospell.travel.common.annotation.Value;
-
-import org.litepal.util.LogUtil;
 
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
@@ -71,7 +70,7 @@ public class ReflectUtil {
             InputStream in = context.getAssets().open("appConfig");
             props.load(in);
         } catch (Exception e) {
-            LogUtil.e (ReflectUtil.class.getName (),e);
+            Log.e (ReflectUtil.class.getName (), e.getMessage (),e);
         }
         initFieldByAnnotation (object.getClass (), Value.class,(annotation, field) -> {
             try {
@@ -87,7 +86,7 @@ public class ReflectUtil {
                     field.set (object,value);
                 }
             }catch (Exception e){
-                LogUtil.e (ReflectUtil.class.getName (),e);
+                Log.e (ReflectUtil.class.getName (), e.getMessage (),e);
             }
         },false);
     }

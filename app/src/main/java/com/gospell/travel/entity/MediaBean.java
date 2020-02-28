@@ -23,6 +23,8 @@ public class MediaBean extends LitePalSupport {
     private int status = 0;
     //-1:文件已不存在 1：存在
     private int isExist = 1;
+    public static final int FILE_EXIST = 1;
+    public static final int FILE_NOTEXIST = -1;
     //视频
     private String thumbPath;
     private int duration;
@@ -52,7 +54,8 @@ public class MediaBean extends LitePalSupport {
         if(count>0){//已经存在
             return true;
         }
-        return super.save ();
+        super.save ();
+        return true;
     }
     public enum Type {
         Image,Video

@@ -8,11 +8,9 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.gospell.travel.entity.MediaBean;
-import com.gospell.travel.ftp.FTPService;
-
-import org.litepal.util.LogUtil;
 
 public class MediaService extends Service {
     private PhotoAlbumContentObserver photoAlbumContentObserver;
@@ -32,34 +30,19 @@ public class MediaService extends Service {
         mediaLoader = new MediaLoader (getBaseContext ());
         mediaLoader.getAllPhotoInfo ();
         listenPhotoAlbumDB();
-        new Thread (() -> {
-            while (true){
-                if(MediaLoader.mediaBeanQueue.size ()>0){
-                    MediaBean mediaBean = MediaLoader.mediaBeanQueue.poll ();
-                    if(mediaBean!=null){
-                        mediaBean.save ();
-                    }
-                }else{
-                    try {
-                        Thread.sleep (10000);
-                    }catch (InterruptedException e){
-                        LogUtil.e (MediaService.class.getName (),e);
-                    }
-                }
-            }
-        }).start ();
     }
     /**
      * 对图库的数据库变化添加监听
      */
     private void listenPhotoAlbumDB() {
-        System.out.println ("开始监听");
+        Log.i (getClass ().getName (),"相册变化的相关监听启动");
         if (photoAlbumContentObserver == null) {
             PhotoAlbumHandler photoAlbumHandler = new PhotoAlbumHandler();
             photoAlbumContentObserver = new PhotoAlbumContentObserver(photoAlbumHandler);
             photoAlbumContentResolver = getBaseContext ().getContentResolver();
             registerContentObserver();
         }
+        Log.i (getClass ().getName (),"相册变化的相关监听启动完毕");
     }
     /**
      * 注册相册变化的相关监听
@@ -73,9 +56,7 @@ public class MediaService extends Service {
         photoAlbumContentObserver.setOnChangeListener(() -> {
             MediaBean mediaBean = mediaLoader.getMediaByUri (photoUri,photoAlbumContentResolver);
             if(mediaBean!=null){
-                MediaLoader.mediaBeanQueue.offer (mediaBean);
-                FTPService.mediaBeanQueue.offer (mediaBean);
-                FTPService.total++;
+                mediaBean.save ();
             }
         });
     }

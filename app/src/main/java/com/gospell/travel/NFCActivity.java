@@ -1,12 +1,11 @@
 package com.gospell.travel;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.nfc.NfcAdapter;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.gospell.travel.common.util.NfcUtils;
 
@@ -46,13 +45,14 @@ public class NFCActivity extends AppCompatActivity {
         //调用工具方法，读取NFC数据
         try {
             String id = NfcUtils.readNFCId (intent);
-            System.out.println (id);
+            System.out.println ("nfcId:"+id);
             if(!"".equals (id)){
-                NfcUtils.writeNFCToTag ("test",intent);
-                //System.out.println (NfcUtils.readNFCFromTag (intent));
+                NfcUtils.writeNFCToTag ("gospell",intent);
+                System.out.println (NfcUtils.readNFCFromTag (intent));
             }
-           /* String str = NfcUtils.readNFCFromTag (intent);
-            System.out.println (str);*/
+            String str = NfcUtils.readNFCFromTag (intent);
+            Toast.makeText (this,str,Toast.LENGTH_SHORT).show ();
+            System.out.println ("识别到NFC,Id:"+id+",内容为:"+str);
         }catch (Exception e){
             e.printStackTrace ();
         }

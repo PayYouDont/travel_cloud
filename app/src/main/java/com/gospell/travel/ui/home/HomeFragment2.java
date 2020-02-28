@@ -76,11 +76,11 @@ public class HomeFragment2 extends BaseFragment {
                 System.out.println ("onTabReselected::tab=" + tab.getText ());
             }
         });
-        uploadInfoList = FTPService.uploadInfoList;
+        //uploadInfoList = FTPService.uploadInfoList;
         int allProgress = 0;
-        if(FTPService.total>0){
+        /*if(FTPService.total>0){
             allProgress = uploadInfoList.size () * 100 / FTPService.total;
-        }
+        }*/
         uploadAllProgress.setProgress (allProgress);
         uploadAllInfo.setText ("上传进度：" + allProgress + "%");
         uploadListView.setLayoutManager (new LinearLayoutManager (getContext (), LinearLayoutManager.VERTICAL, false));
@@ -129,9 +129,9 @@ public class HomeFragment2 extends BaseFragment {
                 baseAdapter.getTList ().add (uploadInfo);
                 baseAdapter.notifyItemInserted (baseAdapter.getTList ().size () - 1);
             }
-            int progress = uploadInfoList.size () * 100 / FTPService.total;
+            /*int progress = uploadInfoList.size () * 100 / FTPService.total;
             uploadAllProgress.setProgress (progress);
-            uploadAllInfo.setText ("上传进度：" + progress + "%");
+            uploadAllInfo.setText ("上传进度：" + progress + "%");*/
         });
         IntentFilter filter = new IntentFilter ();
         filter.addAction (FTPReceiver.ACTION_UPLOADINFO);
@@ -139,7 +139,7 @@ public class HomeFragment2 extends BaseFragment {
     }
 
     private void initUploadedRecyclerView() {
-        baseAdapter.getTList ().addAll (FTPService.uploadInfoList);
+        //baseAdapter.getTList ().addAll (FTPService.uploadInfoList);
     }
 
     private void initDownloadedRecyclerView() {

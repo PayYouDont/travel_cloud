@@ -136,7 +136,7 @@ public class NfcUtils {
             return true;
         } catch (Exception e) {
             //Log.d("WriteTextActivity",e.toString());
-            e.printStackTrace ();
+            //e.printStackTrace ();
         }
         return false;
     }

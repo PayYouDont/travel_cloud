@@ -17,9 +17,9 @@ public class HomeViewModel extends ViewModel {
     public HomeViewModel() {
         liveData = new MutableLiveData<> ();
         List<UploadInfo> uploadInfos = new ArrayList<> ();
-        if(FTPService.uploadInfoList.size ()!=0){
+        /*if(FTPService.uploadInfoList.size ()!=0){
             uploadInfos.addAll (FTPService.uploadInfoList);
-        }
+        }*/
         liveData.setValue (uploadInfos);
     }
 }

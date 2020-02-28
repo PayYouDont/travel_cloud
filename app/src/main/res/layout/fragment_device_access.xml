@@ -15,6 +15,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+                android:id="@+id/access_tv_layout"
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
 
@@ -40,6 +41,7 @@
                     android:layout_weight="1" />
 
             <ImageView
+                    android:id="@+id/access_tv_check"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
@@ -51,6 +53,7 @@
                 android:layout_height="0.8dp"
                 android:background="@drawable/border_bottom"/>
         <LinearLayout
+                android:id="@+id/access_wifi_layout"
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
 
@@ -76,11 +79,152 @@
                     android:layout_weight="1" />
 
             <ImageView
+                    android:id="@+id/access_wifi_check"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:src="@drawable/ic_define" />
+        </LinearLayout>
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="@drawable/border_bottom"/>
+        <LinearLayout
+                android:id="@+id/test_setting_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="FTP管理"
+                    android:textSize="20dp"
+                    android:textColor="@color/rail_color_primary_dark"
+                    android:layout_gravity="center"/>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp">
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="IP设置:"
+                                android:textSize="16dp"
+                                android:gravity="center"/>
+                        <EditText
+                                android:id="@+id/ftp_ip"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2"/>
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="端口设置:"
+                                android:gravity="center"/>
+                        <EditText
+                                android:id="@+id/ftp_port"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:inputType="number"/>
+                    </LinearLayout>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="用户名:"
+                            android:textSize="16dp"
+                            android:gravity="center"/>
+                    <EditText
+                            android:id="@+id/ftp_username"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="密码:"
+                            android:gravity="center"/>
+                    <EditText
+                            android:id="@+id/ftp_password"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:inputType="textPassword"
+                            android:layout_weight="1"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+                <Button
+                        android:id="@+id/save_config"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="保存配置"/>
+                <Button
+                        android:id="@+id/choose_file"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="选择文件"/>
+                <Button
+                        android:id="@+id/test_pauseBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="开始上传"/>
+
+                <Button
+                        android:id="@+id/select_ftp_server"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="查看FTP"/>
+                <Button
+                        android:id="@+id/local_ip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="ip"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="下载文件名："
+                        android:gravity="center"/>
+                <EditText
+                        android:id="@+id/download_filename"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="treetxt.txt"/>
+                <Button
+                        android:id="@+id/download_localBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="下载到本地"/>
+            </LinearLayout>
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp">
+                <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,12 +4,14 @@ import android.net.wifi.ScanResult;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gospell.travel.R;
+import com.gospell.travel.common.util.NetworkUtil;
 
 import java.util.List;
 
@@ -38,6 +40,7 @@ public class WifiAdapter extends RecyclerView.Adapter {
         ScanResult result = scanResultList.get (position);
         ViewHolder viewHolder = (ViewHolder) holder;
         viewHolder.wifiSSIDView.setText (result.SSID);
+        viewHolder.wifiImage.setBackgroundResource (NetworkUtil.getWiFiRssiImgRes (result.level));
         viewHolder.wifiView.setOnClickListener (v -> listener.click (result));
     }
 
@@ -48,10 +51,12 @@ public class WifiAdapter extends RecyclerView.Adapter {
     static class ViewHolder extends RecyclerView.ViewHolder {
         View wifiView;
         TextView wifiSSIDView;
+        ImageView wifiImage;
         public ViewHolder(@NonNull View itemView) {
             super (itemView);
             wifiView = itemView;
             wifiSSIDView = wifiView.findViewById (R.id.wifi_ssid);
+            wifiImage = wifiView.findViewById (R.id.wifi_image);
         }
     }
     public interface OnItemListener{

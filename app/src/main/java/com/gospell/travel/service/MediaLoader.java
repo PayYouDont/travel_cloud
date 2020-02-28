@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.util.Log;
 
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.Queue;
 
 public class MediaLoader {
-    public static Queue<MediaBean> mediaBeanQueue = new LinkedList<> ();
+    //public static Queue<MediaBean> mediaBeanQueue = new LinkedList<> ();
     private Context context;
     private final String[] projImage = {MediaStore.Images.Media._ID, // id
             MediaStore.Images.Media.DATA,// 文件路径
@@ -68,33 +69,18 @@ public class MediaLoader {
      * 读取手机中所有图片信息
      */
     public void getAllPhotoInfo() {
-        new Thread(() -> {
-            //List<MediaBean> mediaBeanList = new ArrayList<> ();
-            //Map<String,List<MediaBean>> allPhotosTemp = new HashMap<>();//所有照片
-            Uri mImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-
-            Cursor mCursor = context.getContentResolver().query(mImageUri,projImage,MediaStore.Images.Media.MIME_TYPE + "=? or " + MediaStore.Images.Media.MIME_TYPE + "=?",
-                    new String[]{"image/jpeg", "image/png"},MediaStore.Images.Media.DATE_MODIFIED+" desc");
-            if(mCursor!=null){
-                while (mCursor.moveToNext()) {
-                    mediaBeanQueue.offer (parseToMediaBean (mCursor));
-                    //用于展示相册初始化界面
-                    //mediaBeanList.add(mediaBean);
-                    /*// 获取该图片的父路径名
-                    String dirPath = new File (path).getParentFile().getAbsolutePath();
-                    //存储对应关系
-                    if (allPhotosTemp.containsKey(dirPath)) {
-                        List<MediaBean> data = allPhotosTemp.get(dirPath);
-                        data.add(mediaBean);
-                        continue;
-                    } else {
-                        List<MediaBean> data = new ArrayList<>();
-                        data.add(mediaBean);
-                        allPhotosTemp.put(dirPath,data);
-                    }*/
+        Uri mImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        Cursor mCursor = context.getContentResolver ().query (mImageUri, projImage, MediaStore.Images.Media.MIME_TYPE + "=? or " + MediaStore.Images.Media.MIME_TYPE + "=?",
+                new String[]{"image/jpeg", "image/png"}, MediaStore.Images.Media.DATE_MODIFIED + " desc");
+        if (mCursor != null) {
+            new Thread (() -> {
+                while (mCursor.moveToNext ()) {
+                    MediaBean mediaBean = parseToMediaBean (mCursor);
+                    mediaBean.save ();
                 }
-                mCursor.close();
-            }}).start();
+                mCursor.close ();
+            }).start ();
+        }
     }
     /**
      * 获取手机中所有视频的信息

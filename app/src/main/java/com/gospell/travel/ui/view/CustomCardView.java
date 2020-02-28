@@ -40,7 +40,7 @@ public class CustomCardView extends LinearLayout {
         this.title = title;
         this.cardEntities = cardEntities;
         this.setOrientation (VERTICAL);
-        LayoutParams param = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LayoutParams param = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, parseToDP (120));
         this.setLayoutParams (param);
         this.setBackgroundColor (Color.parseColor ("#ffffff"));
         init ();

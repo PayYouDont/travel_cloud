@@ -2,6 +2,9 @@ package com.gospell.travel.ftp;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
+import org.apache.commons.net.io.CopyStreamAdapter;
+import org.apache.commons.net.io.CopyStreamEvent;
+import org.apache.commons.net.io.CopyStreamListener;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -119,7 +122,7 @@ public class FTPUtil {
      * @Param [ftpClient, pathName, fileName, os]
      * @return boolean
      **/
-    public  boolean downloadFile(FTPClient ftpClient,String pathName, String fileName, OutputStream os) throws Exception{
+    public static boolean downloadFile(FTPClient ftpClient,String pathName, String fileName, OutputStream os) throws Exception{
         boolean flag;
         //OutputStream os=null;
         try {

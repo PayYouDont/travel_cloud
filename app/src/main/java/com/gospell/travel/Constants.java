@@ -1,7 +1,5 @@
 package com.gospell.travel;
 
-import android.widget.Spinner;
-
 import com.gospell.travel.entity.SpinnerData;
 import com.gospell.travel.entity.UserLog;
 
@@ -11,6 +9,13 @@ import java.util.Date;
 import java.util.List;
 
 public class Constants {
+    public static String FTP_USERNAME = "admin";
+    public static String FTP_PASSWORD = "123456";
+    public static String FTP_SERVER_IP ="192.168.1.161";
+    public static int FTP_SERVER_PORT = 21;
+    public static boolean FTP_AUTOUPLOAD = true;
+    public static final String SERVICE_IP = "http://10.0.2.2";
+    public static final int SERVICE_PORT = 8080;
     public static final String APP_ID = "wx1094c1641cc70b55";
     public static final String APP_SECRET = "eb814d999f9544e1daf78287bdb0e9e4";
     private static List<UserLog> logList;
@@ -82,3 +87,4 @@ public class Constants {
         return notifMenuDataList;
     }
 }
+

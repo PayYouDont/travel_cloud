@@ -19,7 +19,8 @@
                 app:actionLayout="@layout/arrow" />
     </group>
 
-    <item android:title="@string/menu_other_setting">
+    <item android:title="@string/menu_other_setting"
+          android:id="@+id/menu_other_title">
         <menu>
             <item
                     android:id="@+id/nav_wifi_setting"

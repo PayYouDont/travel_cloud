@@ -74,6 +74,7 @@
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginRight="@dimen/activity_horizontal_margin">
                 <TextView
+                        android:id="@+id/sync_selected_text"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="同步完成百分比"

@@ -16,13 +16,11 @@ public class NettyBroadcast {
 
     public NettyBroadcast(InetSocketAddress address) {
         bootstrap = new Bootstrap ();
-        bootstrap.group (group)
-                .channel (NioDatagramChannel.class)
-                .option(ChannelOption.SO_BROADCAST, true)
-                .handler(new BroadcastChannelInitializer (address));
+        bootstrap.group (group).channel (NioDatagramChannel.class).option (ChannelOption.SO_BROADCAST, true).handler (new BroadcastChannelInitializer (address));
     }
+
     public void run(Object msg) {
-        channel= bootstrap.bind (0).syncUninterruptibly ().channel ();
+        channel = bootstrap.bind (0).syncUninterruptibly ().channel ();
         System.out.println ("LogEventBroadcaster running");
         while (true) {
             System.out.println ("Client IP is " + channel);
@@ -35,11 +33,9 @@ public class NettyBroadcast {
             }
         }
     }
+
     public void destroy() {
-        if (channel != null) {
-            channel.close();
-        }
-        group.shutdownGracefully();
+        if (channel != null) channel.close ();
+        group.shutdownGracefully ();
     }
 }
-

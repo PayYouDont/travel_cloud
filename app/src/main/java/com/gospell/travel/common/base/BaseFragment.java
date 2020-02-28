@@ -2,6 +2,7 @@ package com.gospell.travel.common.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,6 @@ import androidx.fragment.app.Fragment;
 import com.gospell.travel.common.annotation.RootView;
 import com.gospell.travel.common.annotation.ViewById;
 import com.gospell.travel.common.util.ReflectUtil;
-import com.gospell.travel.helper.BackHandlerHelper;
-import com.gospell.travel.helper.FragmentBackHandler;
-
-import org.litepal.util.LogUtil;
 
 import lombok.Getter;
 
@@ -49,7 +46,7 @@ public abstract class BaseFragment extends Fragment{
                 }
                 root = (View) field.get (this);
             }catch (IllegalAccessException e) {
-                LogUtil.e (getClass ().getName (), e);
+                Log.e (getClass ().getName (), e.getMessage (),e);
             }
         });
     }
@@ -64,7 +61,7 @@ public abstract class BaseFragment extends Fragment{
                     field.set (this, root.findViewById (viewById.value ()));
                 }
             } catch (IllegalAccessException e) {
-                LogUtil.e (getClass ().getName (), e);
+                Log.e (getClass ().getName (), e.getMessage (),e);
             }
         });
     }

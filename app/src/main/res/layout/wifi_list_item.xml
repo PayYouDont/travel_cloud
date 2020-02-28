@@ -11,7 +11,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_wifi"
+                android:background="@drawable/ic_wifi_full"
                 android:layout_marginRight="20dp"/>
         <TextView
                 android:id="@+id/wifi_ssid"

@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -43,7 +44,6 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.jetbrains.annotations.NotNull;
-import org.litepal.util.LogUtil;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -204,7 +204,7 @@ public class LoginActivity extends AppCompatActivity {
                     field.set (this, findViewById (viewById.value ()));
                 }
             } catch (IllegalAccessException e) {
-                LogUtil.e (getClass ().getName (), e);
+                Log.e (getClass ().getName (), e.getMessage (),e);
             }
         });
     }

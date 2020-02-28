@@ -19,8 +19,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
-import com.gospell.travel.common.annotation.Value;
-import com.gospell.travel.common.util.ReflectUtil;
 import com.gospell.travel.ftp.FTPService;
 import com.gospell.travel.helper.ReplaceViewHelper;
 import com.gospell.travel.service.MediaService;
@@ -35,11 +33,10 @@ import ru.alexbykov.nopermission.PermissionHelper;
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private PermissionHelper permissionHelper;
-    @Value("ftp.autoUpload")
-    private Boolean autoUpload = false;
     private BGABadgeLinearLayout messageCountBv;
     private DrawerLayout drawer;
     private NavigationView navigationView;
+    private Intent uploadIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
@@ -69,20 +66,24 @@ public class MainActivity extends AppCompatActivity {
                 layout.addView (textView);
             }
         });
+        System.out.println ("view="+navigationView.getRootView ().findViewById (R.id.menu_other_title));
         NavigationUI.setupActionBarWithNavController (this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController (navigationView, navController);
         permissionHelper = new PermissionHelper(this);
         getPermission();
-        ReflectUtil.initFieldByConfig (this,this);
-        if(autoUpload){
+        if(Constants.FTP_AUTOUPLOAD){
             Intent mediaLoadIntent = new Intent (this, MediaService.class);
             startService (mediaLoadIntent);
-            Intent uploadIntent = new Intent (this, FTPService.class);
+            uploadIntent = new Intent (this, FTPService.class);
             startService (uploadIntent);
         }
-        /*Intent intent = new Intent (this, NFCActivity.class);
-        startActivity (intent);*/
-        //initDialog ();
+    }
+    public void restartUploadService(){
+        stopService (uploadIntent);
+        startService (uploadIntent);
+    }
+    public void stopUploadService(){
+        stopService (uploadIntent);
     }
     private void initDialog() {
         final CustomDialog dialog = new CustomDialog (MainActivity.this);
@@ -140,11 +141,10 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.ACCESS_WIFI_STATE,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.CHANGE_WIFI_MULTICAST_STATE,
-                Manifest.permission.MEDIA_CONTENT_CONTROL
-        ).onSuccess(() -> {
-            System.out.println ("获取权限成功");
-        }).onDenied(() -> Toast.makeText (this,"权限被拒绝！将无法获取到WiFi信息!",Toast.LENGTH_SHORT).show ())
-         .onNeverAskAgain(() -> Toast.makeText (this,"权限被拒绝！将无法获取到WiFi信息,下次不会再询问了！",Toast.LENGTH_SHORT).show ()).run();
+                Manifest.permission.MEDIA_CONTENT_CONTROL)
+                .onSuccess(() -> System.out.println ("获取权限成功"))
+                .onDenied(() -> Toast.makeText (this,"权限被拒绝！将无法获取到WiFi信息!",Toast.LENGTH_SHORT).show ())
+                .onNeverAskAgain(() -> Toast.makeText (this,"权限被拒绝！将无法获取到WiFi信息,下次不会再询问了！",Toast.LENGTH_SHORT).show ()).run();
     }
     public String getSelectedItem(){
         return navigationView.getCheckedItem ().getTitle ().toString ();

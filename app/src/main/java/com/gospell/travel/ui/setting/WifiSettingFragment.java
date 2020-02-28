@@ -18,6 +18,7 @@ import com.gospell.travel.common.base.BaseFragment;
 import com.gospell.travel.ui.view.CustomSlideButton;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +73,7 @@ public class WifiSettingFragment extends BaseFragment {
         }else {
             Log.e(getClass ().getName (), "没有搜索到wifi");
         }
+        wifiList.sort ((o1, o2) -> o2.level>o1.level?1:-1);
         return wifiList;
     }
     private void refreshWiFiList(){
