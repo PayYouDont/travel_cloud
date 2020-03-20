@@ -8,4 +8,7 @@
     <dimen name="toolbar_height">48dp</dimen>
     <dimen name="home_header">52dp</dimen>
     <dimen name="home_margin">20dp</dimen>
+    <dimen name="func_menu_image_width">20dp</dimen>
+    <dimen name="func_menu_image_height">20dp</dimen>
+    <dimen name="func_menu_text_size">12dp</dimen>
 </resources>

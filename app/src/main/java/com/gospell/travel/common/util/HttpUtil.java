@@ -18,6 +18,13 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class HttpUtil {
+    /**
+    * @Author peiyongdong
+    * @Description ( get请求 )
+    * @Date 11:26 2020/3/20
+    * @Param [url, param, listener]
+    * @return void
+    **/
     public static void get(String url, Map<String,String> param, ResponseListener listener){
         if (param!=null&&!param.isEmpty ()){
             StringBuffer buffer = new StringBuffer ();
@@ -58,6 +65,13 @@ public class HttpUtil {
     public static void get(String url, ResponseListener listener) {
         get(url, null,listener);
     }
+    /**
+    * @Author peiyongdong
+    * @Description ( post请求 )
+    * @Date 11:28 2020/3/20
+    * @Param [url, param, listener]
+    * @return void
+    **/
     public static void post(String url, Map<String,String> param, ResponseListener listener){
         FormBody.Builder formBody = new FormBody.Builder();
         if(!param.isEmpty ()){
@@ -86,8 +100,37 @@ public class HttpUtil {
     public static void post(String url,ResponseListener listener){
         post (url,null,listener);
     }
+    /**
+    * @Author peiyongdong
+    * @Description ( 请求回执监听器 )
+    * @Date 11:28 2020/3/20
+    * @Param
+    * @return
+    **/
     public interface ResponseListener{
         void callback(Call call);
+    }
+    /**
+    * @Author peiyongdong
+    * @Description ( 获取服务返回的文件名称，前提是服务器消息头中有filename字段 )
+    * @Date 11:29 2020/3/20
+    * @Param [response]
+    * @return java.lang.String
+    **/
+    public static String getHeaderFileName(Response response) {
+        String dispositionHeader = response.header("Content-Disposition");
+        if (!StringUtil.isEmpty(dispositionHeader)) {
+            dispositionHeader.replace("attachment;filename=", "");
+            dispositionHeader.replace("filename*=utf-8", "");
+            String[] strings = dispositionHeader.split("; ");
+            if (strings.length > 1) {
+                dispositionHeader = strings[1].replace("filename=", "");
+                dispositionHeader = dispositionHeader.replace("\"", "");
+                return dispositionHeader;
+            }
+            return "";
+        }
+        return "";
     }
 
 }

@@ -10,4 +10,7 @@ public class StringUtil {
     public static String formatDouble(Double value){
         return decimalFormat.format (value);
     }
+    public static String formatFloat(Float value){
+        return decimalFormat.format (value);
+    }
 }

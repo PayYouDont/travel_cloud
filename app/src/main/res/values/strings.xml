@@ -37,4 +37,12 @@
         2、对所有实例变量赋默认值将方法区内对实例变量的定义拷贝一份到堆区，然后赋默认值\n
         3、执行实例初始化代码初始化顺序是先初始化父类再初始化子类，初始化时先执行实例代码块然后是构造方法
     </string>
+    <string name="select_all_true">全选</string>
+    <string name="select_all_false">全不选</string>
+    <string name="item">项</string>
+    <!--功能菜单-->
+    <string name="func_menu_download">下载</string>
+    <string name="func_menu_move">移动</string>
+    <string name="func_menu_delete">删除</string>
+    <string name="func_menu_more">更多</string>
 </resources>

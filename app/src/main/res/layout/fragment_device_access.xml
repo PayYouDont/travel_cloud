@@ -210,21 +210,13 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:layout_weight="1"
-                        android:text="treetxt.txt"/>
+                        android:text="idea.zip"/>
                 <Button
                         android:id="@+id/download_localBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="下载到本地"/>
             </LinearLayout>
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp">
-                <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -193,7 +193,13 @@ public class LoginActivity extends AppCompatActivity {
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText (getApplicationContext (), errorString, Toast.LENGTH_SHORT).show ();
     }
-
+    /**
+    * @Author peiyongdong
+    * @Description ( 初始化注解 )
+    * @Date 11:21 2020/3/20
+    * @Param []
+    * @return void
+    **/
     private void initViewByAnnotation() {
         ReflectUtil.initFieldByAnnotation (getClass (), ViewById.class, (annotation, field) -> {
             ViewById viewById = (ViewById) annotation;

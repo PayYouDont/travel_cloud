@@ -19,4 +19,11 @@
         <attr name="shadowY"      format="dimension"/>
         <attr name="shadowColor"  format="color"/>
     </declare-styleable>
+    <declare-styleable name="CardView">
+        <attr name="dateText" format="string"/>
+        <attr name="itemCount" format="string"/>
+        <attr name="itemWidth" format="dimension"/>
+        <attr name="itemHeight" format="dimension"/>
+        <attr name="spanCount" format="integer"/>
+    </declare-styleable>
 </resources>

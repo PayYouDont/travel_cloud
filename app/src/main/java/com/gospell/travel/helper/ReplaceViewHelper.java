@@ -4,7 +4,13 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-
+/**
+* @Author peiyongdong
+* @Description ( 动态替换view辅助类 )
+* @Date 11:33 2020/3/20
+* @Param
+* @return
+**/
 public class ReplaceViewHelper {
     private View mTargetView;
     private View mReplaceView = null;

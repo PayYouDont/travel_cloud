@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 
@@ -33,7 +34,7 @@ public class CustomButton extends AppCompatButton {
         params.rightMargin = ViewUtil.getdip (getContext (),10);
         setLayoutParams (params);
         setPadding (getLeft (),0,getRight (),getBottom ());
-        setTextSize (12 );
+        setTextSize (12);
         setGravity(Gravity.CENTER);
         switch (type){
             case normal:
@@ -59,7 +60,6 @@ public class CustomButton extends AppCompatButton {
     public CustomButton(Context context) {
         this(context,Type.normal);
     }
-
     /**
      * 得到实心的drawable, 一般作为选中，点中的效果
      *

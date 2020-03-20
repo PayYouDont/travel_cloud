@@ -94,7 +94,7 @@ public class HomeFragment extends BaseFragment {
         cardEntities.add (cardEntity2);
         CustomCardView customCardView = new CustomCardView (getContext (),"蓝牙连接中的设备",cardEntities);
         cardViews.add (customCardView);
-        for (int i=0;i<10;i++){
+        for (int i=0;i<5;i++){
             List<CardEntity> cardEntities2 = new ArrayList<> ();
             CardEntity cardEntity3 = new CardEntity ();
             cardEntity3.setLabel ("小米机顶盒");

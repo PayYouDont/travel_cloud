@@ -34,7 +34,13 @@ public abstract class BaseFragment extends Fragment{
         return root;
     }
     abstract protected void onCreateView();
-
+    /**
+    * @Author peiyongdong
+    * @Description ( 初始化RootView注解 )
+    * @Date 11:22 2020/3/20
+    * @Param []
+    * @return void
+    **/
     private void initRootView(){
         ReflectUtil.initFieldByAnnotation (getClass (),RootView.class,(annotation, field) -> {
             try {
@@ -50,7 +56,13 @@ public abstract class BaseFragment extends Fragment{
             }
         });
     }
-
+    /**
+    * @Author peiyongdong
+    * @Description ( 初始化ViewById注解 )
+    * @Date 11:22 2020/3/20
+    * @Param []
+    * @return void
+    **/
     private void initViewByAnnotation() {
         ReflectUtil.initFieldByAnnotation (getClass (),ViewById.class,(annotation, field) -> {
             ViewById viewById = (ViewById)annotation;

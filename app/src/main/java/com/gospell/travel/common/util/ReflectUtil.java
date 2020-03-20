@@ -14,7 +14,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
-
+/**
+* @Author peiyongdong
+* @Description ( 反射工具类 )
+* @Date 11:31 2020/3/20
+* @Param
+* @return
+**/
 public class ReflectUtil {
     public static List<Field> getFields(Class<?> clazz) {
         //属性集合

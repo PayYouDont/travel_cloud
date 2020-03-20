@@ -2,14 +2,19 @@ package com.gospell.travel.ftp;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
-import org.apache.commons.net.io.CopyStreamAdapter;
-import org.apache.commons.net.io.CopyStreamEvent;
-import org.apache.commons.net.io.CopyStreamListener;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
 public class FTPUtil {
+    /**
+    * @Author peiyongdong
+    * @Description ( 创建ftp目录 )
+    * @Date 11:32 2020/3/20
+    * @Param [ftpClient, remote]
+    * @return boolean
+    **/
     public static boolean createDirecroty(FTPClient ftpClient,String remote) throws Exception {
         boolean success = true;
         String directory = remote + "/";
@@ -115,13 +120,22 @@ public class FTPUtil {
         }
         return flag;
     }
-    /**
-     * @Author peiyongdong
-     * @Description ( 下载文件 )
-     * @Date 9:51 2019/10/29
-     * @Param [ftpClient, pathName, fileName, os]
-     * @return boolean
-     **/
+    public static long getFileSize(FTPClient ftpClient,String fileName) throws Exception{
+        FTPFile[] ftpFiles = ftpClient.listFiles();
+        for (FTPFile file:ftpFiles){
+            if(fileName.equalsIgnoreCase (file.getName ())){
+                return file.getSize ();
+            }
+        }
+        return -1;
+    }
+        /**
+         * @Author peiyongdong
+         * @Description ( 下载文件 )
+         * @Date 9:51 2019/10/29
+         * @Param [ftpClient, pathName, fileName, os]
+         * @return boolean
+         **/
     public static boolean downloadFile(FTPClient ftpClient,String pathName, String fileName, OutputStream os) throws Exception{
         boolean flag;
         //OutputStream os=null;
@@ -135,6 +149,7 @@ public class FTPUtil {
                     //os = new FileOutputStream(localFile);
                     ftpClient.retrieveFile(file.getName(), os);
                     os.close();
+                    break;
                 }
             }
             ftpClient.logout();

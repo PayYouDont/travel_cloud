@@ -6,11 +6,12 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.gospell.travel.Constants;
+import com.gospell.travel.common.util.StringUtil;
+import com.gospell.travel.entity.LoadInfo;
 import com.gospell.travel.entity.MediaBean;
-import com.gospell.travel.ui.util.UploadNotification;
+import com.gospell.travel.ui.view.CustomNotification;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
@@ -21,14 +22,17 @@ import org.litepal.LitePal;
 import java.io.File;
 import java.io.IOException;
 import java.net.ConnectException;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class FTPService extends Service implements CopyStreamListener {
-    private static final int STATUS_SUCCESS = 1;
+    public static final int STATUS_SUCCESS = 1;
+    public static final int STATUS_NOTSUCCESS = 0;
     private static ThreadPoolExecutor poolExecutor;
     private static Map<Runnable, FTPClient> ftpClientMap = new HashMap<> ();
     // ftp服务保存地址
@@ -41,25 +45,32 @@ public class FTPService extends Service implements CopyStreamListener {
     private int maxRetries = 2;
     private String encoding = "ISO-8859-1";
     //线程池中最大线程数量
-    private int maxiPoolSize = 3;
+    private int maxiPoolSize = 1;
     private int total = 0;
     private int successCount;
     private int errorCount;
     private int progress;
+    private double totalSize = 0;
+    public static boolean UPLOAD_PAUSE = false;
+    private LoadInfo loadInfo;
+    int sum = 0;
     private Handler uploadHandler = new Handler (){
         @Override
         public void handleMessage(Message msg) {
             if(msg!=null){
                 progress = successCount*100/total;
-                UploadNotification.create (FTPService.this)
-                        .setTitle ("同步结果")
-                        .setText ("共计：" + total + "条,成功：" + successCount + "条,失败：" + errorCount + "条 \n进度:" + progress + "%")
+                float rate = loadInfo.getEvalRate ();
+                String rateStr = rate>1024? StringUtil.formatFloat (rate/1024)+"Mb/s":StringUtil.formatFloat (rate)+"kb/s";
+                String fileName = msg.obj.toString ();
+                CustomNotification.create (FTPService.this)
+                        .setTitle ("同步中...")
                         .setProgress (progress)
+                        .setFileName (fileName)
+                        .setLoadType (CustomNotification.LoadType.upload)
+                        .setRateMsg ("当前速度："+rateStr)
+                        .setLoadSize ("共计:"+ total +"条" )
+                        .setLoadClickListener (loading -> UPLOAD_PAUSE = !loading)
                         .show ();
-                 /*Intent intent = new Intent();
-        intent.setAction(FTPReceiver.ACTION_UPLOADINFO);
-        intent.putExtra ("uploadInfo",uploadInfo);
-        LocalBroadcastManager.getInstance(getBaseContext ()).sendBroadcast(intent);*/
             }
         }
     };
@@ -72,21 +83,39 @@ public class FTPService extends Service implements CopyStreamListener {
     public void onCreate() {
         super.onCreate ();
         Log.d (getClass ().getName (),"服务已启动");
-        LitePal.where ("status=" + STATUS_SUCCESS).findAsync (MediaBean.class).listen (list -> {
-            total += list.size ();
-            Toast.makeText (getBaseContext (),"查询到"+list.size ()+"条待上传的数据！",Toast.LENGTH_SHORT).show ();
-            list.forEach (mediaBean -> uploadMediaBean (mediaBean));
-        });
+        loadInfo = new LoadInfo ();
+        loadInfo.setBeginLoadDate (new Date ());
+        new Thread (()->{
+            while (true){
+                List<MediaBean> list = LitePal.where ("status=" + STATUS_SUCCESS+" and isExist="+MediaBean.FILE_EXIST).limit (10).offset (total).find (MediaBean.class);
+                if (list.size ()>0){
+                    System.out.println ("size="+list.size ());
+                    total += list.size ();
+                    list.forEach (mediaBean -> {
+                        uploadMediaBean (mediaBean);
+                    });
+                }else {
+                    try {
+                        Thread.sleep (1000);
+                    }catch (InterruptedException e){
+                        e.printStackTrace ();
+                    }
+                }
+            }
+        }).start ();
     }
 
     public void uploadMediaBean(MediaBean mediaBean){
         String path = mediaBean.getPath ();
         File file = new File (path);
         if (!file.exists ()) {
+            total--;
             mediaBean.setIsExist (MediaBean.FILE_NOTEXIST);
             mediaBean.update (mediaBean.getId ());
             return;
         }
+        totalSize += mediaBean.getSize ()/1024/1024;
+        loadInfo.setTotalSize (totalSize);
         if(poolExecutor == null){
             synchronized (this){
                 if(poolExecutor==null){
@@ -109,13 +138,13 @@ public class FTPService extends Service implements CopyStreamListener {
                 }
                 helper.upload ();
                 successCount++;
-                //mediaBean.setStatus (STATUS_SUCCESS);
-                //mediaBean.save ();
             }catch (Exception e){
                 e.printStackTrace ();
                 errorCount++;
             }
-            uploadHandler.handleMessage (new Message ());
+            Message message = new Message ();
+            message.obj = mediaBean.getDisplayName ();
+            uploadHandler.sendMessage (message);
         });
     }
     private FTPClient getFtpClient(){
@@ -161,11 +190,17 @@ public class FTPService extends Service implements CopyStreamListener {
 
     @Override
     public void bytesTransferred(long totalBytesTransferred, int bytesTransferred, long streamSize) {
-        System.out.println ("当前已传输字节:"+totalBytesTransferred);
+        /*System.out.println ("当前已传输字节:"+totalBytesTransferred);
         System.out.println ("当前传输字节:"+bytesTransferred);
-        System.out.println ("复制流中的字节数:"+streamSize);
-
-
+        System.out.println ("复制流中的字节数:"+streamSize);*/
+        while (UPLOAD_PAUSE){
+            try {
+                Thread.sleep (1000);
+            }catch (Exception e){
+                e.printStackTrace ();
+            }
+        }
+        loadInfo.setLoadTotalSize (totalBytesTransferred/1024);
     }
 
     @Override

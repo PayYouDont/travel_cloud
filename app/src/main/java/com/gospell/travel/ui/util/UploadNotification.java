@@ -23,6 +23,7 @@ public class UploadNotification {
     private String title = "同步结果";
     private String text;
     private int progress;
+    private String channelId = "com.gospell.travel.ftpservice.update.notification";
 
     public static UploadNotification create(final Service service){
         if(UploadNotification.service==null||!UploadNotification.service.equals (service)){
@@ -33,7 +34,12 @@ public class UploadNotification {
         }
         return uploadNotification;
     }
-
+    public static UploadNotification create(){
+        if(uploadNotification==null){
+            uploadNotification = new UploadNotification ();
+        }
+        return uploadNotification;
+    }
     private UploadNotification() {}
     public void show(){
         service.startForeground (1,getNotification (progress));
@@ -50,8 +56,12 @@ public class UploadNotification {
                 .setVibrate(new long[]{0})
                 .setSmallIcon (R.mipmap.ic_launcher)
                 .setLargeIcon (BitmapFactory.decodeResource (service.getResources (),R.mipmap.ic_launcher));
+        Notification.BigTextStyle style = new Notification.BigTextStyle();
+        style.bigText(text);
+        style.setBigContentTitle(title);
+        builder.setStyle (style);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel notificationChannel = new NotificationChannel ("com.gospell.travel.ftpservice.update.notification","result", NotificationManager.IMPORTANCE_LOW);
+            NotificationChannel notificationChannel = new NotificationChannel (channelId,"上传和下载通知", NotificationManager.IMPORTANCE_LOW);
             notificationChannel.enableLights(false);//如果使用中的设备支持通知灯，则说明此通知通道是否应显示灯
             notificationChannel.setShowBadge(false);//是否在久按桌面图标时显示此渠道的通知
             notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_SECRET);
@@ -62,10 +72,10 @@ public class UploadNotification {
             builder.setChannelId (notificationChannel.getId ());
         }
         if(progress>=0){
-            builder.setContentText (text);
+            //builder.setContentText (text);
+            //style.setBigContentTitle("进度:"+progress+"%");
             builder.setProgress (100,progress,false);
         }
-        //builder.setCustomContentView ()
         return builder.build(); // 获取构建好的Notification
     }
     private NotificationManager getNotificationManager() {

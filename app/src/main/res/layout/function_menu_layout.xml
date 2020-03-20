@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/border_top">
+
+    <LinearLayout
+            android:id="@+id/func_menu_download"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:orientation="vertical">
+
+        <ImageView
+                android:layout_width="@dimen/func_menu_image_width"
+                android:layout_height="@dimen/func_menu_image_height"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/ic_menu_download" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/func_menu_text_size"
+                android:textColor="@color/colorTextDark"
+                android:text="@string/func_menu_download" />
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/func_menu_move"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+        <ImageView
+                android:layout_width="@dimen/func_menu_image_width"
+                android:layout_height="@dimen/func_menu_image_height"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/ic_menu_move" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/func_menu_text_size"
+                android:textColor="@color/colorTextDark"
+                android:text="@string/func_menu_move" />
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/func_menu_delete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+        <ImageView
+                android:layout_width="@dimen/func_menu_image_width"
+                android:layout_height="@dimen/func_menu_image_height"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/ic_menu_delete" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/func_menu_text_size"
+                android:textColor="@color/colorTextDark"
+                android:text="@string/func_menu_delete" />
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/func_menu_more"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:orientation="vertical">
+
+        <ImageView
+                android:layout_width="@dimen/func_menu_image_width"
+                android:layout_height="@dimen/func_menu_image_height"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/ic_menu_more" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/func_menu_text_size"
+                android:textColor="@color/colorTextDark"
+                android:text="@string/func_menu_more" />
+    </LinearLayout>
+</LinearLayout>

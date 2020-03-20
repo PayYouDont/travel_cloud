@@ -35,12 +35,13 @@ public class ViewUtil {
         final float scale = context.getResources ().getDisplayMetrics ().density;
         return (int) (dpValue * scale + 0.5f);
     }
-
-    //px转dp
-    public static int px2dip(Context context, int pxValue) {
-        return getdip (context, pxValue);
+    /**
+     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
+     */
+    public static int px2dip(Context context, float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
     }
-
     public static int getdip(Context context, float value) {
         return ((int) TypedValue.applyDimension (TypedValue.COMPLEX_UNIT_DIP, value, context.getResources ().getDisplayMetrics ()));
     }

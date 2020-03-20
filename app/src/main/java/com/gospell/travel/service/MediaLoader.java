@@ -4,7 +4,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.util.Log;
 
@@ -14,9 +13,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 public class MediaLoader {
     //public static Queue<MediaBean> mediaBeanQueue = new LinkedList<> ();
@@ -76,7 +73,7 @@ public class MediaLoader {
             new Thread (() -> {
                 while (mCursor.moveToNext ()) {
                     MediaBean mediaBean = parseToMediaBean (mCursor);
-                    mediaBean.save ();
+                    mediaBean.saveOrUpdate ();
                 }
                 mCursor.close ();
             }).start ();

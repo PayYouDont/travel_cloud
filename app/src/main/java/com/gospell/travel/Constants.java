@@ -1,5 +1,6 @@
 package com.gospell.travel;
 
+import com.gospell.travel.common.util.DateUtil;
 import com.gospell.travel.entity.SpinnerData;
 import com.gospell.travel.entity.UserLog;
 
@@ -9,18 +10,20 @@ import java.util.Date;
 import java.util.List;
 
 public class Constants {
-    public static String FTP_USERNAME = "admin";
-    public static String FTP_PASSWORD = "123456";
-    public static String FTP_SERVER_IP ="192.168.1.161";
-    public static int FTP_SERVER_PORT = 21;
+    public static String FTP_USERNAME = "ftp";
+    public static String FTP_PASSWORD = "ftp";
+    public static String FTP_SERVER_IP ="192.168.10.100";
+    public static int FTP_SERVER_PORT = 2121;
+    public static String HTTP_SERVER_IP ="192.168.10.100";
+    public static int HTTP_SERVER_PORT = 8080;
     public static boolean FTP_AUTOUPLOAD = true;
-    public static final String SERVICE_IP = "http://10.0.2.2";
-    public static final int SERVICE_PORT = 8080;
     public static final String APP_ID = "wx1094c1641cc70b55";
     public static final String APP_SECRET = "eb814d999f9544e1daf78287bdb0e9e4";
     private static List<UserLog> logList;
     private static List<SpinnerData> syncMenuDataList;
     private static List<SpinnerData> notifMenuDataList;
+    //用户创建时间，根据时间加载数据时最多追溯到这个时间后的数据
+    public static Date createDate = DateUtil.parseToDate ("2020-03-01","yyyy-MM-dd");
     public static UserLog getTestUserLog(Integer id){
         initUserLogs();
         for (UserLog userLog:logList) {

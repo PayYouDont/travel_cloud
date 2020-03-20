@@ -20,11 +20,12 @@ public class DeviceIdUtil {
     }
 
     /**
-     * 获得设备硬件标识
-     *
-     * @param context 上下文
-     * @return 设备硬件标识
-     */
+    * @Author peiyongdong
+    * @Description ( 获得设备硬件标识 )
+    * @Date 11:26 2020/3/20
+    * @Param [context]
+    * @return java.lang.String
+    **/
     @RequiresPermission(android.Manifest.permission.READ_PHONE_STATE)
     public static String getDeviceId(Context context) {
         StringBuilder sbDeviceId = new StringBuilder ();
